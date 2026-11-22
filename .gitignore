@@ -1,0 +1,30 @@
+# Virtual environment
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Data
+data/raw/
+
+# Processed data
+data/processed/*.parquet
+data/processed/*.csv
+
+# Logs
+*.log
