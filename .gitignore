@@ -19,12 +19,11 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Data
+# Raw data
 data/raw/
 
-# Processed data
+# Large processed dataset
 data/processed/*.parquet
-data/processed/*.csv
 
 # Logs
 *.log
