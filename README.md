@@ -8,6 +8,14 @@ The objective is to analyze housing market trends, property prices, transaction 
 
 The project covers more than 5.5 million residential transactions after cleaning and preprocessing over 20 million raw records from the DVF database.
 
+## Data Source
+
+This project uses data from the **DVF (Demandes de Valeurs Foncières)** database, an official open-data initiative provided by the **French Public Finance Directorate (DGFiP)**.
+
+The DVF database contains property transaction records across France, including sale prices, transaction dates, property characteristics, and geographic information.
+
+The analysis covers the period from **2021 to 2026** and is based on more than **5.5 million real estate transactions**, offering a comprehensive view of the French housing market.
+
 ---
 
 ## Objectives
