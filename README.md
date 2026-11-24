@@ -144,31 +144,37 @@ france-real-estate-analytics/
 
 ---
 
-## Main Insights
+## Key Insights
 
-### Most Expensive Cities
+### Premium Real Estate Markets
 
-- Paris 06
-- Paris 07
 - Saint-Jean-Cap-Ferrat
-- Paris 04
 - Ramatuelle
+- Val-d'Isère
+- Saint-Tropez
+- Neuilly-sur-Seine
 
-### Most Active Cities
+### Most Active Real Estate Markets
 
+- Paris
 - Toulouse
 - Nice
 - Nantes
 - Bordeaux
-- Montpellier
 
 ### Most Active Departments
 
-- 59 (Nord)
-- 13 (Bouches-du-Rhône)
-- 75 (Paris)
-- 33 (Gironde)
-- 83 (Var)
+- Nord (59)
+- Bouches-du-Rhône (13)
+- Paris (75)
+- Gironde (33)
+- Var (83)
+
+### Housing Market Structure
+
+- Houses account for approximately 57% of all transactions.
+- Apartments account for approximately 43% of all transactions.
+- Apartments achieve significantly higher average prices per square meter than houses.
 
 ---
 
