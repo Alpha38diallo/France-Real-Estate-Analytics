@@ -23,6 +23,17 @@ df = pd.read_parquet(DATA_FILE)
 print(f"Lignes : {len(df):,}")
 
 # ==================================================
+# Normalisation des villes
+# ==================================================
+
+df["ville"] = df["commune"]
+
+df.loc[
+    df["ville"].str.startswith("PARIS"),
+    "ville"
+] = "PARIS"
+
+# ==================================================
 # 1. Evolution du prix moyen au m²
 # ==================================================
 
@@ -60,7 +71,7 @@ fig1.write_image(
 print("✅ yearly_price.png")
 
 # ==================================================
-# 2. Evolution du nombre de ventes
+# 2. Evolution du nombre de transactions
 # ==================================================
 
 yearly_sales = (
@@ -93,7 +104,7 @@ fig2.write_image(
 print("✅ yearly_sales.png")
 
 # ==================================================
-# 3. Répartition Maison / Appartement
+# 3. Répartition des biens
 # ==================================================
 
 property_distribution = (
@@ -131,11 +142,11 @@ fig3.write_image(
 print("✅ property_distribution.png")
 
 # ==================================================
-# 4. Top 10 villes les plus chères
+# 4. Marchés immobiliers les plus chers
 # ==================================================
 
 top_expensive_cities = (
-    df.groupby("commune")
+    df.groupby("ville")
     .agg(
         prix_m2_moyen=("prix_m2", "mean"),
         nombre_ventes=("prix_m2", "size")
@@ -159,15 +170,15 @@ fig4 = px.bar(
         "prix_m2_moyen"
     ),
     x="prix_m2_moyen",
-    y="commune",
+    y="ville",
     orientation="h",
     text_auto=",",
-    title="Top 10 Most Expensive Cities"
+    title="Top 10 Premium Real Estate Markets"
 )
 
 fig4.update_layout(
     xaxis_title="Average Price per m² (€)",
-    yaxis_title="City",
+    yaxis_title="Market",
     template="plotly_white",
     showlegend=False
 )
@@ -181,7 +192,7 @@ fig4.write_image(
 print("✅ top_expensive_cities.png")
 
 # ==================================================
-# 5. Top départements
+# 5. Départements les plus actifs
 # ==================================================
 
 top_departments = (
@@ -219,11 +230,11 @@ fig5.write_image(
 print("✅ top_departments.png")
 
 # ==================================================
-# 6. Top villes par nombre de ventes
+# 6. Marchés immobiliers les plus dynamiques
 # ==================================================
 
 top_sales_cities = (
-    df.groupby("commune")
+    df.groupby("ville")
     .size()
     .reset_index(name="nombre_ventes")
     .sort_values(
@@ -238,15 +249,15 @@ fig6 = px.bar(
         "nombre_ventes"
     ),
     x="nombre_ventes",
-    y="commune",
+    y="ville",
     orientation="h",
     text_auto=",",
-    title="Top 10 Cities by Transactions"
+    title="Top 10 Most Active Real Estate Markets"
 )
 
 fig6.update_layout(
     xaxis_title="Transactions",
-    yaxis_title="City",
+    yaxis_title="Market",
     template="plotly_white",
     showlegend=False
 )

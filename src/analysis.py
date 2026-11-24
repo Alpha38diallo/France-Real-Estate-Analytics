@@ -1,9 +1,9 @@
 import pandas as pd
 from pathlib import Path
 
-# ==========================
+# ==================================================
 # Chargement des données
-# ==========================
+# ==================================================
 
 DATA_FILE = Path("data/processed/france_real_estate.parquet")
 
@@ -13,9 +13,20 @@ df = pd.read_parquet(DATA_FILE)
 
 print(f"Nombre de lignes : {len(df):,}")
 
-# ==========================
+# ==================================================
+# Normalisation des villes
+# ==================================================
+
+df["ville"] = df["commune"]
+
+df.loc[
+    df["ville"].str.startswith("PARIS"),
+    "ville"
+] = "PARIS"
+
+# ==================================================
 # KPI Généraux
-# ==========================
+# ==================================================
 
 total_sales = len(df)
 
@@ -34,9 +45,9 @@ print(f"Prix moyen au m² : {avg_price_m2:,.2f} €")
 print(f"Prix médian au m² : {median_price_m2:,.2f} €")
 print(f"Valeur foncière moyenne : {avg_property_value:,.2f} €")
 
-# ==========================
+# ==================================================
 # Répartition des biens
-# ==========================
+# ==================================================
 
 property_distribution = (
     df["type_local"]
@@ -55,12 +66,12 @@ print("=" * 50)
 
 print(property_distribution)
 
-# ==========================
-# Top 10 communes les plus chères
-# ==========================
+# ==================================================
+# Marchés immobiliers les plus chers
+# ==================================================
 
 top_expensive_cities = (
-    df.groupby("commune")
+    df.groupby("ville")
     .agg(
         prix_m2_moyen=("prix_m2", "mean"),
         nombre_ventes=("prix_m2", "size")
@@ -75,14 +86,14 @@ top_expensive_cities = (
 )
 
 print("\n" + "=" * 50)
-print("TOP 10 COMMUNES LES PLUS CHÈRES")
+print("TOP 10 MARCHÉS IMMOBILIERS LES PLUS CHERS")
 print("=" * 50)
 
 print(top_expensive_cities)
 
-# ==========================
-# Top 10 départements
-# ==========================
+# ==================================================
+# Départements les plus actifs
+# ==================================================
 
 top_departments = (
     df.groupby("code_departement")
@@ -96,14 +107,14 @@ top_departments = (
 )
 
 print("\n" + "=" * 50)
-print("TOP 10 DÉPARTEMENTS PAR NOMBRE DE VENTES")
+print("TOP 10 DÉPARTEMENTS LES PLUS ACTIFS")
 print("=" * 50)
 
 print(top_departments)
 
-# ==========================
+# ==================================================
 # Evolution annuelle du prix au m²
-# ==========================
+# ==================================================
 
 yearly_price = (
     df.groupby("annee")
@@ -115,14 +126,14 @@ yearly_price = (
 )
 
 print("\n" + "=" * 50)
-print("EVOLUTION ANNUELLE DU PRIX AU M²")
+print("ÉVOLUTION ANNUELLE DU PRIX AU M²")
 print("=" * 50)
 
 print(yearly_price)
 
-# ==========================
+# ==================================================
 # Evolution annuelle des ventes
-# ==========================
+# ==================================================
 
 yearly_sales = (
     df.groupby("annee")
@@ -131,17 +142,17 @@ yearly_sales = (
 )
 
 print("\n" + "=" * 50)
-print("EVOLUTION ANNUELLE DES VENTES")
+print("ÉVOLUTION ANNUELLE DES TRANSACTIONS")
 print("=" * 50)
 
 print(yearly_sales)
 
-# ==========================
-# Top 10 communes les plus actives
-# ==========================
+# ==================================================
+# Villes les plus dynamiques
+# ==================================================
 
 top_sales_cities = (
-    df.groupby("commune")
+    df.groupby("ville")
     .size()
     .reset_index(name="nombre_ventes")
     .sort_values(
@@ -152,14 +163,14 @@ top_sales_cities = (
 )
 
 print("\n" + "=" * 50)
-print("TOP 10 COMMUNES PAR NOMBRE DE VENTES")
+print("TOP 10 VILLES LES PLUS DYNAMIQUES")
 print("=" * 50)
 
 print(top_sales_cities)
 
-# ==========================
-# Sauvegarde KPI
-# ==========================
+# ==================================================
+# Export des résultats
+# ==================================================
 
 OUTPUT_DIR = Path("reports")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -194,4 +205,4 @@ top_sales_cities.to_csv(
     index=False
 )
 
-print("\n✅ KPI exportés dans le dossier reports/")
+print("\n✅ Analyses exportées dans le dossier reports/")
